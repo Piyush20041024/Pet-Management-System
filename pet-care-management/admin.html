@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Include SheetJS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, Admin!</h1>
+        <h2>All Registered Pets</h2>
+        <ul id="adminPetList"></ul>
+
+        <button id="addAdminPetBtn">Add Pet</button>
+        <button id="downloadExcelBtn">Download Excel</button>
+    </div>
+
+    <!-- Add Pet Modal -->
+    <div id="adminAddPetModal" class="modal">
+        <div class="modal-content">
+            <h3>Add New Pet</h3>
+            <input type="text" id="adminPetName" placeholder="Pet Name">
+            <input type="text" id="adminPetBreed" placeholder="Pet Breed">
+            <input type="number" id="adminPetWeight" placeholder="Pet Weight (kg)">
+            <input type="number" id="adminPetHeight" placeholder="Pet Height (cm)">
+            <input type="text" id="adminPetType" placeholder="Pet Type (e.g., Dog, Cat)">
+            <button id="adminSavePetBtn">Save</button>
+            <button id="adminCancelAddPetBtn">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        const adminPets = JSON.parse(localStorage.getItem('pets')) || [];
+        const adminPetList = document.getElementById('adminPetList');
+        const adminAddPetModal = document.getElementById('adminAddPetModal');
+
+        // Function to render admin pet list
+        const renderAdminPets = () => {
+            adminPetList.innerHTML = '';
+            adminPets.forEach((pet, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    ${pet.petName} (${pet.petType}) - ${pet.petBreed}
+                    <button onclick="deleteAdminPet(${index})">Delete</button>
+                `;
+                adminPetList.appendChild(li);
+            });
+        };
+
+        // Add pet event
+        document.getElementById('addAdminPetBtn').addEventListener('click', () => {
+            adminAddPetModal.style.display = 'block';
+        });
+
+        document.getElementById('adminCancelAddPetBtn').addEventListener('click', () => {
+            adminAddPetModal.style.display = 'none';
+        });
+
+        document.getElementById('adminSavePetBtn').addEventListener('click', () => {
+            const pet = {
+                petName: document.getElementById('adminPetName').value,
+                petBreed: document.getElementById('adminPetBreed').value,
+                petWeight: parseInt(document.getElementById('adminPetWeight').value),
+                petHeight: parseInt(document.getElementById('adminPetHeight').value),
+                petType: document.getElementById('adminPetType').value,
+            };
+
+            adminPets.push(pet);
+            localStorage.setItem('pets', JSON.stringify(adminPets));
+            renderAdminPets();
+            adminAddPetModal.style.display = 'none';
+        });
+
+        // Delete pet
+        const deleteAdminPet = (index) => {
+            adminPets.splice(index, 1);
+            localStorage.setItem('pets', JSON.stringify(adminPets));
+            renderAdminPets();
+        };
+
+        // Excel Download Function
+        document.getElementById('downloadExcelBtn').addEventListener('click', () => {
+            // Convert pets data to a worksheet
+            const ws = XLSX.utils.json_to_sheet(adminPets);
+            
+            // Create a workbook
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Pets");
+
+            // Trigger download of Excel file
+            XLSX.writeFile(wb, "pet_data.xlsx");
+        });
+
+        // Initial render
+        renderAdminPets();
+    </script>
+</body>
+</html>

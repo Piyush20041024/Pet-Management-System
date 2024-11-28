@@ -3,15 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Care Management</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Pet Care Management - Home</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to Pet Care Management</h1>
-        <button onclick="window.location.href='login.html'">Login</button>
-        <button onclick="window.location.href='register.html'">Register</button>
+        <h1>Pet Care Management System</h1>
+        <p>Welcome! Please choose your role:</p>
+
+        <div class="button-group">
+            <button id="adminBtn" class="btn">Admin</button>
+            <button id="userBtn" class="btn">User</button>
+        </div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        document.getElementById('adminBtn').addEventListener('click', () => {
+            window.location.href = 'admin-login.html';
+        });
+
+        document.getElementById('userBtn').addEventListener('click', () => {
+            window.location.href = 'user-login.html';
+        });
+    </script>
 </body>
 </html>

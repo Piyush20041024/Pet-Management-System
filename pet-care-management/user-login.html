@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>User Login</h1>
+        <div class="form">
+            <input type="text" id="userUsername" placeholder="Username">
+            <input type="password" id="userPassword" placeholder="Password">
+            <button id="userLoginBtn">Login</button>
+        </div>
+        <p id="message"></p>
+        <p>Don't have an account? <a href="register.html">Register here</a></p>
+    </div>
+
+    <script>
+        document.getElementById('userLoginBtn').addEventListener('click', () => {
+            const username = document.getElementById('userUsername').value;
+            const password = document.getElementById('userPassword').value;
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(user => user.username === username && user.password === password && user.role === 'user');
+
+            if (user) {
+                alert('Login successful! Redirecting to user dashboard...');
+                window.location.href = 'user.html';
+            } else {
+                document.getElementById('message').innerText = 'Invalid credentials!';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Login</h1>
+        <div class="form">
+            <input type="text" id="adminUsername" placeholder="Username">
+            <input type="password" id="adminPassword" placeholder="Password">
+            <button id="adminLoginBtn">Login</button>
+        </div>
+        <p id="message"></p>
+        <p>Don't have an account? <a href="register.html">Register here</a></p>
+    </div>
+
+    <script>
+        document.getElementById('adminLoginBtn').addEventListener('click', () => {
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const admin = users.find(user => user.username === username && user.password === password && user.role === 'admin');
+
+            if (admin) {
+                alert('Login successful! Redirecting to admin dashboard...');
+                window.location.href = 'admin.html';
+            } else {
+                document.getElementById('message').innerText = 'Invalid credentials!';
+            }
+        });
+    </script>
+</body>
+</html>

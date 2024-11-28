@@ -3,24 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Pet Care Management - Registration</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="register-container">
-        <h1>Register</h1>
-        <form id="registerForm">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <input type="email" id="email" placeholder="Email" required>
+    <div class="container">
+        <h1>Pet Care Management</h1>
+        <div class="form">
+            <h2>Register</h2>
+            <label for="role">Role:</label>
             <select id="role">
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
             </select>
-            <button type="submit">Register</button>
-        </form>
-        <p>Already have an account? <a href="login.html">Login here</a></p>
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+            <button id="registerBtn">Register</button>
+        </div>
+        <p id="message"></p>
+        <p>Already have an account? <a href="index.html">Login here</a></p>
     </div>
-    <script src="script.js"></script>
+
+    <script src="js/register.js"></script>
 </body>
 </html>

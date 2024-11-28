@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+    <div class="container">
+        <h1>User Dashboard</h1>
+        <div id="petDetails"></div>
+        <button id="addPetBtn">Register a New Pet</button>
+    </div>
+
+    <div id="petForm" class="hidden">
+        <h2>Register Pet</h2>
+        <input type="text" id="petName" placeholder="Pet Name" required>
+        <input type="text" id="petBreed" placeholder="Pet Breed" required>
+        <input type="number" id="petWeight" placeholder="Weight (kg)" required>
+        <input type="number" id="petHeight" placeholder="Height (cm)" required>
+        <select id="petType">
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+            <option value="other">Other</option>
+        </select>
+        <button id="savePetBtn">Save Pet</button>
+    </div>
+
+    <script src="js/user.js"></script>
+</body>
+</html>
